@@ -7,6 +7,14 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -16,16 +24,22 @@ public abstract class BaseScreen implements Screen, InputProcessor, ControllerLi
     protected Stage mainstage;
     protected Stage uiStage;
     protected Table uiTable;
+    protected World world;
+
+    private Box2DDebugRenderer debugRenderer;
 
     public BaseScreen() {
         mainstage = new Stage();
-        mainstage.setViewport(new ExtendViewport(100, 100));
+        mainstage.setViewport(new ExtendViewport(30, 30));
 
         uiTable = new Table();
         uiTable.setFillParent(true);
         uiStage = new Stage();
         uiStage.addActor(uiTable);
         uiStage.setViewport(new ScreenViewport());
+
+        world = new World(new Vector2(0, -9.81f), true);
+        debugRenderer = new Box2DDebugRenderer();
 
         initialize();
     }
@@ -40,11 +54,13 @@ public abstract class BaseScreen implements Screen, InputProcessor, ControllerLi
         mainstage.act(delta);
         update(delta);
 
-        Gdx.gl.glClearColor(0.35f, 0.039f, 0.078f, 1f);
+        Gdx.gl.glClearColor(0.035f, 0.039f, 0.078f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         mainstage.getViewport().apply();
         mainstage.draw();
+        debugRenderer.render(world, mainstage.getCamera().combined);
+        world.step(1/60f, 6, 2);
 
         uiStage.getViewport().apply();
         uiStage.draw();
