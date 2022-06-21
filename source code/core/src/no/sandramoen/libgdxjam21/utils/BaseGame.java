@@ -46,6 +46,7 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     public static float musicVolume = 0.5f;
     public static String currentLocale;
     public static I18NBundle myBundle;
+    public static float actorScale = .2f;
 
     public BaseGame() {
         game = this;

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 
+import no.sandramoen.libgdxjam21.actors.Background;
 import no.sandramoen.libgdxjam21.actors.Enemy;
 import no.sandramoen.libgdxjam21.actors.Impassable;
 import no.sandramoen.libgdxjam21.actors.Player;
@@ -11,11 +12,12 @@ import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.BaseScreen;
 
 public class LevelScreen extends BaseScreen {
-
     Player player;
+    Background background;
 
     @Override
     public void initialize() {
+        background = new Background(-27, -15, mainstage);
         player = new Player(0, 10, mainstage, world);
         new Impassable(0, -15, mainstage, world);
         new Impassable(0, 16.5f, mainstage, world);
@@ -24,6 +26,7 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void update(float delta) {
+        background.act();
     }
 
     @Override

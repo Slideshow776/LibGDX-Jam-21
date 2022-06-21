@@ -39,9 +39,9 @@ public class ListenerClass implements ContactListener {
     }
 
     private void playerCollidedWithAnEnemy(Player player, Enemy enemy) {
-        if (player.getY() > enemy.getY() + enemy.getHeight() * .5f)
+        if (player.getY() > enemy.getY() + enemy.getHeight() * (1/3f))
             enemy.remove = true;
-        else if (enemy.getY() > player.getY() + player.getHeight() * .5f)
+        else if (enemy.getY() > player.getY() + player.getHeight() * (1/3f))
             player.respawn = true;
     }
 }

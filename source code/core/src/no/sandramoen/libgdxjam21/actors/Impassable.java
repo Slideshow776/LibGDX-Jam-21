@@ -1,6 +1,5 @@
 package no.sandramoen.libgdxjam21.actors;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,16 +11,14 @@ import no.sandramoen.libgdxjam21.utils.BaseActor;
 
 public class Impassable extends BaseActor {
     private Body body;
-    private float width = 30;
-    private float height = 1;
+    private float bodyWidth = 30;
+    private float bodyHeight = 1;
 
     public Impassable(float x, float y, Stage stage, World world) {
         super(x, y, stage);
-        loadImage("whitePixel");
-        setSize(width * 2, height * 2);
-        setColor(Color.FOREST);
+        loadImage("ground");
         createBody(x, y, world);
-        centerAtPosition(body.getPosition().x, body.getPosition().y);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyHeight);
     }
 
     private void createBody(float x, float y, World world) {
@@ -31,7 +28,7 @@ public class Impassable extends BaseActor {
         body.setUserData(this);
 
         PolygonShape groundBox = new PolygonShape();
-        groundBox.setAsBox(width, height);
+        groundBox.setAsBox(bodyWidth, bodyHeight);
         body.createFixture(groundBox, 0.0f);
         groundBox.dispose();
     }

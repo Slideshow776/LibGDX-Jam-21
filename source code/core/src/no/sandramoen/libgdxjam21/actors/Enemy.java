@@ -1,7 +1,6 @@
 package no.sandramoen.libgdxjam21.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -20,8 +19,8 @@ public class Enemy extends BaseActor {
     public boolean remove = false;
 
     private Body body;
-    private float width = 1.2f;
-    private float height = 1f;
+    private float bodyWidth = 1.2f;
+    private float bodyHeight = 1f;
     private final float MAX_HORIZONTAL_VELOCITY = 8f;
     private float randomImpulse;
     private float flapFrequency = .3f;
@@ -31,9 +30,7 @@ public class Enemy extends BaseActor {
     public Enemy(float x, float y, Stage stage, World world) {
         super(x, y, stage);
         this.world = world;
-        loadImage("whitePixel");
-        setSize(width * 2, height * 2);
-        setColor(Color.FIREBRICK);
+        loadImage("enemy");
         createBody(x, y, world);
 
         addAction(Actions.forever(Actions.sequence(
@@ -69,10 +66,6 @@ public class Enemy extends BaseActor {
         body.applyLinearImpulse(0f, 15, pos.x, pos.y, true);
     }
 
-    public void die() {
-        remove = true;
-    }
-
     private void AI(float delta) {
         randomMoving();
         randomFlying(delta);
@@ -83,11 +76,15 @@ public class Enemy extends BaseActor {
         Vector2 pos = body.getPosition();
 
         if (randomImpulse > 0) {
-            if (vel.x < MAX_HORIZONTAL_VELOCITY)
+            if (vel.x < MAX_HORIZONTAL_VELOCITY) {
+                if (!isFacingRight) flip();
                 body.applyLinearImpulse(randomImpulse, 0, pos.x, pos.y, true);
+            }
         } else {
-            if (vel.x > -MAX_HORIZONTAL_VELOCITY)
+            if (vel.x > -MAX_HORIZONTAL_VELOCITY) {
+                if (isFacingRight) flip();
                 body.applyLinearImpulse(randomImpulse, 0, pos.x, pos.y, true);
+            }
         }
     }
 
@@ -102,7 +99,7 @@ public class Enemy extends BaseActor {
     }
 
     private void syncGraphicsWithBody() {
-        centerAtPosition(body.getPosition().x, body.getPosition().y);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyHeight);
     }
 
     private void createBody(float x, float y, World world) {
@@ -115,7 +112,7 @@ public class Enemy extends BaseActor {
         body.setUserData(this);
 
         PolygonShape box = new PolygonShape();
-        box.setAsBox(width, height);
+        box.setAsBox(bodyWidth, bodyHeight);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;
@@ -131,12 +128,12 @@ public class Enemy extends BaseActor {
         Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
         Vector3 vec2 = this.getStage().getCamera().unproject(vec);
 
-        if (body.getPosition().x + this.width / 4 > vec2.x)
-            body.setTransform(-vec2.x - this.width / 4, body.getPosition().y, body.getAngle());
-        else if (body.getPosition().x + this.width / 4 < -vec2.x)
-            body.setTransform(vec2.x - this.width / 4, body.getPosition().y, body.getAngle());
+        if (body.getPosition().x + this.bodyWidth / 4 > vec2.x)
+            body.setTransform(-vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
+        else if (body.getPosition().x + this.bodyWidth / 4 < -vec2.x)
+            body.setTransform(vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
 
         if (body.getPosition().y + getHeight() / 2 > -vec2.y)
-            setY(-vec2.y - this.height);
+            setY(-vec2.y - this.bodyHeight);
     }
 }

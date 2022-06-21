@@ -2,7 +2,6 @@ package no.sandramoen.libgdxjam21.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -19,15 +18,13 @@ public class Player extends BaseActor {
     public boolean respawn = false;
 
     private Body body;
-    private float width = 1.2f;
-    private float height = 1f;
+    private float bodyWidth = 1.2f;
+    private float bodyHeight = 1f;
     private final float MAX_HORIZONTAL_VELOCITY = 12.5f;
 
     public Player(float x, float y, Stage stage, World world) {
         super(x, y, stage);
-        loadImage("whitePixel");
-        setSize(width * 2, height * 2);
-        setColor(Color.GOLDENROD);
+        loadImage("player");
         createBody(x, y, world);
     }
 
@@ -52,7 +49,7 @@ public class Player extends BaseActor {
     }
 
     private void syncGraphicsWithBody() {
-        centerAtPosition(body.getPosition().x, body.getPosition().y);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyHeight);
     }
 
     private void createBody(float x, float y, World world) {
@@ -65,7 +62,7 @@ public class Player extends BaseActor {
         body.setUserData(this);
 
         PolygonShape box = new PolygonShape();
-        box.setAsBox(width, height);
+        box.setAsBox(bodyWidth, bodyHeight);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = box;
@@ -81,20 +78,24 @@ public class Player extends BaseActor {
         Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
         Vector3 vec2 = this.getStage().getCamera().unproject(vec);
 
-        if (body.getPosition().x + this.width / 4 > vec2.x)
-            body.setTransform(-vec2.x - this.width / 4, body.getPosition().y, body.getAngle());
-        else if (body.getPosition().x + this.width / 4 < -vec2.x)
-            body.setTransform(vec2.x - this.width / 4, body.getPosition().y, body.getAngle());
+        if (body.getPosition().x + this.bodyWidth / 4 > vec2.x)
+            body.setTransform(-vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
+        else if (body.getPosition().x + this.bodyWidth / 4 < -vec2.x)
+            body.setTransform(vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
     }
 
     private void keyboardPolling() {
         Vector2 vel = body.getLinearVelocity();
         Vector2 pos = body.getPosition();
 
-        if (Gdx.input.isKeyPressed(Keys.A) && vel.x > -MAX_HORIZONTAL_VELOCITY)
+        if (Gdx.input.isKeyPressed(Keys.A) && vel.x > -MAX_HORIZONTAL_VELOCITY) {
+            if (isFacingRight) flip();
             body.applyLinearImpulse(-1f, 0, pos.x, pos.y, true);
+        }
 
-        if (Gdx.input.isKeyPressed(Keys.D) && vel.x < MAX_HORIZONTAL_VELOCITY)
+        if (Gdx.input.isKeyPressed(Keys.D) && vel.x < MAX_HORIZONTAL_VELOCITY) {
+            if (!isFacingRight) flip();
             body.applyLinearImpulse(1f, 0, pos.x, pos.y, true);
+        }
     }
 }
