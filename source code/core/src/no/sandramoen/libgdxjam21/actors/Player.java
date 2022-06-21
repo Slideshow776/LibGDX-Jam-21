@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 
 public class Player extends BaseActor {
+    public boolean respawn = false;
+
     private Body body;
     private float width = 1.2f;
     private float height = 1f;
@@ -32,6 +34,7 @@ public class Player extends BaseActor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        if (respawn) respawn();
         keyboardPolling();
         wrapWorld();
         syncGraphicsWithBody();
@@ -40,6 +43,12 @@ public class Player extends BaseActor {
     public void flapWings() {
         Vector2 pos = body.getPosition();
         body.applyLinearImpulse(0f, 15, pos.x, pos.y, true);
+    }
+
+    private void respawn() {
+        body.setTransform(new Vector2(0f, 0f), body.getAngle());
+        body.setLinearVelocity(0f, 0f);
+        respawn = false;
     }
 
     private void syncGraphicsWithBody() {
@@ -53,6 +62,7 @@ public class Player extends BaseActor {
 
         body = world.createBody(bodyDef);
         body.setFixedRotation(true);
+        body.setUserData(this);
 
         PolygonShape box = new PolygonShape();
         box.setAsBox(width, height);

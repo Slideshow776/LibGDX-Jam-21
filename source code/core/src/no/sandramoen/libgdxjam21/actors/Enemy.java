@@ -17,17 +17,20 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 
 public class Enemy extends BaseActor {
+    public boolean remove = false;
+
     private Body body;
     private float width = 1.2f;
     private float height = 1f;
     private final float MAX_HORIZONTAL_VELOCITY = 8f;
     private float randomImpulse;
-
     private float flapFrequency = .3f;
     private float flapCounter = 0f;
+    private World world;
 
     public Enemy(float x, float y, Stage stage, World world) {
         super(x, y, stage);
+        this.world = world;
         loadImage("whitePixel");
         setSize(width * 2, height * 2);
         setColor(Color.FIREBRICK);
@@ -50,6 +53,15 @@ public class Enemy extends BaseActor {
         wrapWorld();
         syncGraphicsWithBody();
         AI(delta);
+        if (remove) remove();
+    }
+
+    @Override
+    public boolean remove() {
+        body.setTransform(new Vector2(-100f, -100f), body.getAngle());
+        body.setActive(false);
+        body.setAwake(false);
+        return super.remove();
     }
 
     public void flapWings() {
@@ -57,7 +69,16 @@ public class Enemy extends BaseActor {
         body.applyLinearImpulse(0f, 15, pos.x, pos.y, true);
     }
 
+    public void die() {
+        remove = true;
+    }
+
     private void AI(float delta) {
+        randomMoving();
+        randomFlying(delta);
+    }
+
+    private void randomMoving() {
         Vector2 vel = body.getLinearVelocity();
         Vector2 pos = body.getPosition();
 
@@ -68,14 +89,15 @@ public class Enemy extends BaseActor {
             if (vel.x > -MAX_HORIZONTAL_VELOCITY)
                 body.applyLinearImpulse(randomImpulse, 0, pos.x, pos.y, true);
         }
+    }
 
-
+    private void randomFlying(float delta) {
         if (flapCounter <= flapFrequency) {
             flapCounter += delta;
         } else {
             flapWings();
             flapCounter = 0f;
-            flapFrequency = MathUtils.random(.1f, .6f);
+            flapFrequency = MathUtils.random(.05f, .65f);
         }
     }
 
@@ -90,6 +112,7 @@ public class Enemy extends BaseActor {
 
         body = world.createBody(bodyDef);
         body.setFixedRotation(true);
+        body.setUserData(this);
 
         PolygonShape box = new PolygonShape();
         box.setAsBox(width, height);

@@ -28,6 +28,7 @@ public class Impassable extends BaseActor {
         BodyDef groundBodyDef = new BodyDef();
         groundBodyDef.position.set(new Vector2(x, y));
         body = world.createBody(groundBodyDef);
+        body.setUserData(this);
 
         PolygonShape groundBox = new PolygonShape();
         groundBox.setAsBox(width, height);
