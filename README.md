@@ -4,6 +4,7 @@ A short game created for the [Libgdx Jam 21](https://itch.io/jam/libgdx-jam-21).
 ## Project comments
 ### Removing box2D bodies
 Hacky, but it works.
+
 CollisionListener.java
 ```
 private void playerCollidedWithAnEnemy(Player player, Enemy enemy) {
