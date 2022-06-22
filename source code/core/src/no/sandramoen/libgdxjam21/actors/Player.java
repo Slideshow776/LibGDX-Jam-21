@@ -37,7 +37,7 @@ public class Player extends BaseActor {
         super.act(delta);
         if (respawn) respawn();
         keyboardPolling();
-        wrapWorld();
+        GameUtils.wrapWorld(getStage(), body, bodyWidth);
         syncGraphicsWithBody();
         playGallopingSound();
     }
@@ -88,16 +88,6 @@ public class Player extends BaseActor {
 
         Fixture fixture = body.createFixture(fixtureDef);
         box.dispose();
-    }
-
-    private void wrapWorld() {
-        Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
-        Vector3 vec2 = this.getStage().getCamera().unproject(vec);
-
-        if (body.getPosition().x + this.bodyWidth / 4 > vec2.x)
-            body.setTransform(-vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
-        else if (body.getPosition().x + this.bodyWidth / 4 < -vec2.x)
-            body.setTransform(vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
     }
 
     private void keyboardPolling() {

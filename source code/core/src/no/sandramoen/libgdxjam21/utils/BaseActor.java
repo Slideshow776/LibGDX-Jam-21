@@ -157,8 +157,8 @@ public class BaseActor extends Group {
     public void setAnimation(Animation<TextureRegion> anim) {
         animation = anim;
         TextureRegion tr = animation.getKeyFrame(0);
-        float w = tr.getRegionWidth() * BaseGame.actorScale;
-        float h = tr.getRegionHeight() * BaseGame.actorScale;
+        float w = tr.getRegionWidth() * BaseGame.unitScale;
+        float h = tr.getRegionHeight() * BaseGame.unitScale;
         setSize(w, h);
         setOrigin(w / 2, h / 2);
 
@@ -268,7 +268,7 @@ public class BaseActor extends Group {
                     target.x, target.y, 0f
             ));
 
-            bindCameraToWorld(camera);
+            /*bindCameraToWorld(camera);*/
             camera.update();
         }
     }

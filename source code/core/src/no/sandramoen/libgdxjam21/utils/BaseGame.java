@@ -7,11 +7,13 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -57,7 +59,7 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     public static float musicVolume = 0.3f;
     public static String currentLocale;
     public static I18NBundle myBundle;
-    public static float actorScale = .17f;
+    public static float unitScale = .17f;
 
     public BaseGame() {
         game = this;
@@ -120,7 +122,7 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         assetManager.load("audio/sound/pig3.wav", Sound.class);
 
         // tiled maps
-        // assetManager.setLoader(TiledMap::class.java, TmxMapLoader(InternalFileHandleResolver()))
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         assetManager.load("maps/level1.tmx", TiledMap.class);
 
         assetManager.finishLoading();

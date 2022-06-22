@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import no.sandramoen.libgdxjam21.utils.BaseActor;
+import no.sandramoen.libgdxjam21.utils.GameUtils;
 
 public class Enemy extends BaseActor {
     public boolean remove = false;
@@ -47,7 +48,7 @@ public class Enemy extends BaseActor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        wrapWorld();
+        GameUtils.wrapWorld(getStage(), body, bodyWidth);
         syncGraphicsWithBody();
         AI(delta);
         if (remove) remove();
@@ -68,7 +69,7 @@ public class Enemy extends BaseActor {
 
     private void AI(float delta) {
         randomMoving();
-        // randomFlying(delta);
+        randomFlying(delta);
     }
 
     private void randomMoving() {
