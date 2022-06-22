@@ -3,7 +3,7 @@ A short game created for the [Libgdx Jam 21](https://itch.io/jam/libgdx-jam-21).
 
 [Play it](https://slideshow776.github.io/LibGDX-Jam-21/) for free now? : )
 
-_Press `R` to restart._
+_`A` and `D` to move, `SPACE` to fly, and you can press `R` to restart._
 
 ## Project comments
 ### Removing box2D bodies
