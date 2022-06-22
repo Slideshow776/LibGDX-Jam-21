@@ -1,7 +1,5 @@
 package no.sandramoen.libgdxjam21.utils;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -11,12 +9,9 @@ import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -35,18 +30,34 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     // game assets
     public static LabelStyle label36Style;
     public static LabelStyle label26Style;
-    private static TextButtonStyle textButtonStyle;
     public static TextureAtlas textureAtlas;
     private static Skin skin;
+
+    public static Music levelMusic1;
+    public static Music levelMusic2;
+    public static Music gallopSoundMusic;
+
+    public static Sound armor1Sound;
+    public static Sound armor2Sound;
+    public static Sound armor3Sound;
+    public static Sound armor4Sound;
+    public static Sound armor5Sound;
+    public static Sound pig1Sound;
+    public static Sound pig2Sound;
+    public static Sound pig3Sound;
+
+    public static TiledMap level1Map;
+
+    private static TextButtonStyle textButtonStyle;
 
     // game state
     public static Preferences prefs;
     public static boolean loadPersonalParameters;
     public static float soundVolume = 1f;
-    public static float musicVolume = 0.5f;
+    public static float musicVolume = 0.3f;
     public static String currentLocale;
     public static I18NBundle myBundle;
-    public static float actorScale = .2f;
+    public static float actorScale = .17f;
 
     public BaseGame() {
         game = this;
@@ -94,18 +105,43 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         assetManager.load("images/included/packed/images.pack.atlas", TextureAtlas.class);
 
         // music
-        // assetManager.load("audio/music/320732__shadydave__time-break-drum-only.mp3", Music.class);
+        assetManager.load("audio/music/99567__shnitzelkiller__cammipple.mp3", Music.class);
+        assetManager.load("audio/music/94873__shnitzelkiller__surpni.mp3", Music.class);
 
         // sound
-        // assetManager.load("audio/sound/202091__spookymodem__falling-bones.wav", Sound.class);
+        assetManager.load("audio/sound/armor1.wav", Sound.class);
+        assetManager.load("audio/sound/armor2.wav", Sound.class);
+        assetManager.load("audio/sound/armor3.wav", Sound.class);
+        assetManager.load("audio/sound/armor4.wav", Sound.class);
+        assetManager.load("audio/sound/armor5.wav", Sound.class);
+        assetManager.load("audio/sound/gallop.wav", Music.class);
+        assetManager.load("audio/sound/pig1.wav", Sound.class);
+        assetManager.load("audio/sound/pig2.wav", Sound.class);
+        assetManager.load("audio/sound/pig3.wav", Sound.class);
+
+        // tiled maps
+        // assetManager.setLoader(TiledMap::class.java, TmxMapLoader(InternalFileHandleResolver()))
+        assetManager.load("maps/level1.tmx", TiledMap.class);
 
         assetManager.finishLoading();
 
         // music
-        // levelMusic = assetManager.get("audio/music/320732__shadydave__time-break-drum-only.mp3", Music.class);
+        levelMusic1 = assetManager.get("audio/music/99567__shnitzelkiller__cammipple.mp3", Music.class);
+        levelMusic2 = assetManager.get("audio/music/94873__shnitzelkiller__surpni.mp3", Music.class);
 
         // sound
-        // bonesSound = assetManager.get("audio/sound/202091__spookymodem__falling-bones.wav", Sound.class);
+        armor1Sound = assetManager.get("audio/sound/armor1.wav", Sound.class);
+        armor2Sound = assetManager.get("audio/sound/armor2.wav", Sound.class);
+        armor3Sound = assetManager.get("audio/sound/armor3.wav", Sound.class);
+        armor4Sound = assetManager.get("audio/sound/armor4.wav", Sound.class);
+        armor5Sound = assetManager.get("audio/sound/armor5.wav", Sound.class);
+        gallopSoundMusic = assetManager.get("audio/sound/gallop.wav", Music.class);
+        pig1Sound = assetManager.get("audio/sound/pig1.wav", Sound.class);
+        pig2Sound = assetManager.get("audio/sound/pig2.wav", Sound.class);
+        pig3Sound = assetManager.get("audio/sound/pig3.wav", Sound.class);
+
+        // tiled maps
+        level1Map = assetManager.get("maps/level1.tmx", TiledMap.class);
 
         textureAtlas = assetManager.get("images/included/packed/images.pack.atlas");
         printLoadingTime(startTime);

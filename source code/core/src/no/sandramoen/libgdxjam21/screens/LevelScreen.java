@@ -2,7 +2,6 @@ package no.sandramoen.libgdxjam21.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector3;
 
 import no.sandramoen.libgdxjam21.actors.Background;
 import no.sandramoen.libgdxjam21.actors.Enemy;
@@ -22,6 +21,14 @@ public class LevelScreen extends BaseScreen {
         new Impassable(0, -15, mainstage, world);
         new Impassable(0, 16.5f, mainstage, world);
         new Enemy(5, 5, mainstage, world);
+
+        BaseGame.levelMusic1.setVolume(BaseGame.musicVolume);
+        BaseGame.levelMusic1.setLooping(true);
+        BaseGame.levelMusic1.play();
+
+        BaseGame.gallopSoundMusic.setVolume(0f);
+        BaseGame.gallopSoundMusic.setLooping(true);
+        BaseGame.gallopSoundMusic.play();
     }
 
     @Override

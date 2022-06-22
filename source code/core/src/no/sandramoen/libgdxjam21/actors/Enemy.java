@@ -68,7 +68,7 @@ public class Enemy extends BaseActor {
 
     private void AI(float delta) {
         randomMoving();
-        randomFlying(delta);
+        // randomFlying(delta);
     }
 
     private void randomMoving() {

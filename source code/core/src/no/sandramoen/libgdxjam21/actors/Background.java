@@ -19,16 +19,19 @@ public class Background {
 
         background1 = new BaseActor(x, y, stage);
         background1.loadImage("background3");
+        background1.setScaleX(1.01f);
         background2 = new BaseActor(x + background1.getWidth(), y, stage);
         background2.loadImage("background3");
 
         background3 = new BaseActor(x, y, stage);
         background3.loadImage("background2");
+        background3.setScaleX(1.01f);
         background4 = new BaseActor(x + background1.getWidth(), y, stage);
         background4.loadImage("background2");
 
         background5 = new BaseActor(x, y, stage);
         background5.loadImage("background1");
+        background5.setScaleX(1.01f);
         background6 = new BaseActor(x + background1.getWidth(), y, stage);
         background6.loadImage("background1");
     }

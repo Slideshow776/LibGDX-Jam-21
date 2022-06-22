@@ -39,9 +39,14 @@ public class ListenerClass implements ContactListener {
     }
 
     private void playerCollidedWithAnEnemy(Player player, Enemy enemy) {
+        GameUtils.playRandomSound(BaseGame.pig1Sound, BaseGame.pig2Sound, BaseGame.pig3Sound);
+        GameUtils.playRandomSound(BaseGame.armor1Sound, BaseGame.armor2Sound, BaseGame.armor3Sound, BaseGame.armor4Sound, BaseGame.armor5Sound);
+
         if (player.getY() > enemy.getY() + enemy.getHeight() * (1/3f))
             enemy.remove = true;
         else if (enemy.getY() > player.getY() + player.getHeight() * (1/3f))
             player.respawn = true;
+        else
+            player.reverseHorizontalDirection();
     }
 }
