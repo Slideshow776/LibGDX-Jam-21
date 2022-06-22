@@ -9,6 +9,7 @@ import no.sandramoen.libgdxjam21.actors.Background;
 import no.sandramoen.libgdxjam21.actors.Enemy;
 import no.sandramoen.libgdxjam21.actors.Impassable;
 import no.sandramoen.libgdxjam21.actors.Player;
+import no.sandramoen.libgdxjam21.actors.SpawnPoints;
 import no.sandramoen.libgdxjam21.actors.TilemapActor;
 import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.BaseScreen;
@@ -26,6 +27,7 @@ public class LevelScreen extends BaseScreen {
 
         initializePlayer();
         initializeImpassables();
+        initializeSpawnPoints();
         new Enemy(5, 5, mainStage, world);
 
         /*GameUtils.playLoopingMusic(BaseGame.levelMusic1);*/
@@ -60,6 +62,17 @@ public class LevelScreen extends BaseScreen {
             float width = (Float) props.get("width") * BaseGame.unitScale;
             float height = (Float) props.get("height") * BaseGame.unitScale;
             new Impassable(x, y, width, height, mainStage, world);
+        }
+    }
+
+    private void initializeSpawnPoints() {
+        for (MapObject obj : tilemap.getTileList("spawn")) {
+            MapProperties props = obj.getProperties();
+            float x = (Float) props.get("x") * BaseGame.unitScale;
+            float y = (Float) props.get("y") * BaseGame.unitScale;
+            float width = (Float) props.get("width") * BaseGame.unitScale;
+            float height = (Float) props.get("height") * BaseGame.unitScale;
+            new SpawnPoints(x, y, width, height, mainStage, world);
         }
     }
 }
