@@ -14,12 +14,7 @@ public class Impassable extends BaseActor {
 
     public Impassable(float x, float y, float width, float height, Stage stage, World world) {
         super(x, y, stage);
-        // System.out.println("impassable created => x: " + x + ", y:" + y + ", width: " + width / 2 + ", height: " + height / 2);
-        loadImage("ground");
-        setSize(width, height * 1.25f);
         createBody(x, y, width, height, world);
-
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - height / 2);
     }
 
     private void createBody(float x, float y, float width, float height, World world) {

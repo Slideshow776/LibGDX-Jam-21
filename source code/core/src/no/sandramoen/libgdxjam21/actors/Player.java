@@ -20,8 +20,8 @@ import no.sandramoen.libgdxjam21.utils.GameUtils;
 
 public class Player extends BaseActor {
     public boolean respawn = false;
+    public Body body;
 
-    private Body body;
     private float bodyWidth = 1.2f;
     private float bodyHeight = 1.2f;
     private final float MAX_HORIZONTAL_VELOCITY = 12.5f;

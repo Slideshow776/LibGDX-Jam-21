@@ -21,9 +21,9 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void initialize() {
+        background = new Background(0, 0, mainStage);
         tilemap = new TilemapActor(BaseGame.level1Map, mainStage);
 
-        background = new Background(0, 0, mainStage);
         initializePlayer();
         initializeImpassables();
         new Enemy(5, 5, mainStage, world);
@@ -53,7 +53,7 @@ public class LevelScreen extends BaseScreen {
     }
 
     private void initializeImpassables() {
-        for (MapObject obj : tilemap.getRectangleList("impassable")) {
+        for (MapObject obj : tilemap.getTileList("impassable")) {
             MapProperties props = obj.getProperties();
             float x = (Float) props.get("x") * BaseGame.unitScale;
             float y = (Float) props.get("y") * BaseGame.unitScale;

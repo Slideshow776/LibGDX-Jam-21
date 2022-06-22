@@ -34,7 +34,7 @@ public abstract class BaseScreen implements Screen, InputProcessor, ControllerLi
         uiStage.setViewport(new ScreenViewport());
 
         world = new World(new Vector2(0, -9.81f), true);
-        world.setContactListener(new ListenerClass());
+        world.setContactListener(new CollisionListener());
         debugRenderer = new Box2DDebugRenderer();
 
         initialize();
