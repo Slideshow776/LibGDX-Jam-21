@@ -3,16 +3,14 @@ package no.sandramoen.libgdxjam21.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.utils.Array;
 
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 import no.sandramoen.libgdxjam21.utils.BaseGame;
@@ -22,8 +20,7 @@ public class Player extends BaseActor {
     public boolean respawn = false;
     public Body body;
 
-    private float bodyWidth = 1.2f;
-    private float bodyHeight = 1.2f;
+    private float bodyRadius = 1.2f;
     private final float MAX_HORIZONTAL_VELOCITY = 12.5f;
 
     public Player(float x, float y, Stage stage, World world) {
@@ -37,7 +34,7 @@ public class Player extends BaseActor {
         super.act(delta);
         if (respawn) respawn();
         keyboardPolling();
-        GameUtils.wrapWorld(getStage(), body, bodyWidth);
+        GameUtils.wrapWorld(getStage(), body, bodyRadius);
         syncGraphicsWithBody();
         playGallopingSound();
     }
@@ -65,7 +62,7 @@ public class Player extends BaseActor {
     }
 
     private void syncGraphicsWithBody() {
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyHeight);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyRadius);
     }
 
     private void createBody(float x, float y, World world) {
@@ -77,17 +74,17 @@ public class Player extends BaseActor {
         body.setFixedRotation(true);
         body.setUserData(this);
 
-        PolygonShape box = new PolygonShape();
-        box.setAsBox(bodyWidth, bodyHeight);
+        CircleShape circle = new CircleShape();
+        circle.setRadius(bodyRadius);
 
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = box;
-        fixtureDef.density = 1f;
+        fixtureDef.shape = circle;
+        fixtureDef.density = 1.2f;
         fixtureDef.friction = 1f;
         fixtureDef.restitution = .1f;
 
         Fixture fixture = body.createFixture(fixtureDef);
-        box.dispose();
+        circle.dispose();
     }
 
     private void keyboardPolling() {

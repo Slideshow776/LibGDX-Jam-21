@@ -27,12 +27,10 @@ public class CollisionListener implements ContactListener {
 
         if (entityA.equals("Player") && entityB.equals("Impassable")) {
             Player player = (Player) (contact.getFixtureA().getBody().getUserData());
-            System.out.println(player.body.getLinearVelocity().y);
             if (Math.abs(player.body.getLinearVelocity().y) > 15f)
                 playCollisionSounds();
         } else if (entityA.equals("Impassable") && entityB.equals("Player")) {
             Player player = (Player) (contact.getFixtureB().getBody().getUserData());
-            System.out.println(player.body.getLinearVelocity().y);
             if (Math.abs(player.body.getLinearVelocity().y) > 15f)
                 playCollisionSounds();
         }

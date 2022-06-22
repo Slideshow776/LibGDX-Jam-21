@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -20,8 +21,7 @@ public class Enemy extends BaseActor {
     public boolean remove = false;
 
     private Body body;
-    private float bodyWidth = 1.2f;
-    private float bodyHeight = 1f;
+    private float bodyRadius = 1.2f;
     private final float MAX_HORIZONTAL_VELOCITY = 8f;
     private float randomImpulse;
     private float flapFrequency = .3f;
@@ -33,22 +33,13 @@ public class Enemy extends BaseActor {
         this.world = world;
         loadImage("enemy");
         createBody(x, y, world);
-
-        addAction(Actions.forever(Actions.sequence(
-                Actions.run(new Runnable() {
-                    @Override
-                    public void run() {
-                        randomImpulse = MathUtils.random(-1f, 1f);
-                    }
-                }),
-                Actions.delay(5f)
-        )));
+        createRandomImpulses();
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-        GameUtils.wrapWorld(getStage(), body, bodyWidth);
+        GameUtils.wrapWorld(getStage(), body, bodyRadius);
         syncGraphicsWithBody();
         AI(delta);
         if (remove) remove();
@@ -99,8 +90,20 @@ public class Enemy extends BaseActor {
         }
     }
 
+    private void createRandomImpulses() {
+        addAction(Actions.forever(Actions.sequence(
+                Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        randomImpulse = MathUtils.random(-1f, 1f);
+                    }
+                }),
+                Actions.delay(5f)
+        )));
+    }
+
     private void syncGraphicsWithBody() {
-        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyHeight);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - bodyRadius);
     }
 
     private void createBody(float x, float y, World world) {
@@ -112,29 +115,29 @@ public class Enemy extends BaseActor {
         body.setFixedRotation(true);
         body.setUserData(this);
 
-        PolygonShape box = new PolygonShape();
-        box.setAsBox(bodyWidth, bodyHeight);
+        CircleShape circle = new CircleShape();
+        circle.setRadius(bodyRadius);
 
         FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = box;
+        fixtureDef.shape = circle;
         fixtureDef.density = 1f;
         fixtureDef.friction = 1f;
         fixtureDef.restitution = .1f;
 
         Fixture fixture = body.createFixture(fixtureDef);
-        box.dispose();
+        circle.dispose();
     }
 
     private void wrapWorld() {
         Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
         Vector3 vec2 = this.getStage().getCamera().unproject(vec);
 
-        if (body.getPosition().x + this.bodyWidth / 4 > vec2.x)
-            body.setTransform(-vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
-        else if (body.getPosition().x + this.bodyWidth / 4 < -vec2.x)
-            body.setTransform(vec2.x - this.bodyWidth / 4, body.getPosition().y, body.getAngle());
+        if (body.getPosition().x + this.bodyRadius / 4 > vec2.x)
+            body.setTransform(-vec2.x - this.bodyRadius / 4, body.getPosition().y, body.getAngle());
+        else if (body.getPosition().x + this.bodyRadius / 4 < -vec2.x)
+            body.setTransform(vec2.x - this.bodyRadius / 4, body.getPosition().y, body.getAngle());
 
         if (body.getPosition().y + getHeight() / 2 > -vec2.y)
-            setY(-vec2.y - this.bodyHeight);
+            setY(-vec2.y - this.bodyRadius);
     }
 }
