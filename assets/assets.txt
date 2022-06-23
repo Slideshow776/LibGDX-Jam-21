@@ -36,7 +36,7 @@ i:images/included/player.png:images/included/player-d335c5b1be001a2123db7d92028d
 i:images/included/player_turn.png:images/included/player_turn-5bab19df4bd417632078276071c81828.png:541:image/png:1
 i:images/included/whitePixel.png:images/included/whitePixel-de87a441c71a403f3db732f7870d5b10.png:1260:image/png:1
 d:maps:maps:0:application/unknown:1
-b:maps/level1.tmx:maps/level1-fe190655d313db97ea28d19b647e9822.tmx:8246:application/unknown:1
+b:maps/level1.tmx:maps/level1-1e4014f79ce0c79c4d43f732c4914c7b.tmx:8895:application/unknown:1
 b:maps/platforms.ase:maps/platforms-80b15ebdfc370cba9abe071ee8a4c464.ase:868:application/unknown:1
 i:maps/platforms.png:maps/platforms-62e9dd7bd65342ab2a68dcd64b6c6115.png:690:image/png:1
 d:shaders:shaders:0:application/unknown:1
