@@ -26,7 +26,7 @@ public class LevelScreen extends BaseScreen {
 
     @Override
     public void initialize() {
-        background = new Background(0, 0, mainStage);
+        background = new Background(-10, 0, mainStage);
         tilemap = new TilemapActor(BaseGame.level1Map, mainStage);
 
         initializeImpassables();
