@@ -18,21 +18,19 @@ import no.sandramoen.libgdxjam21.utils.BaseActor;
 import no.sandramoen.libgdxjam21.utils.GameUtils;
 
 public class Enemy extends BaseActor {
+    public static float bodyRadius = 1.2f;
     public boolean remove = false;
 
     private Body body;
-    private float bodyRadius = 1.2f;
     private final float MAX_HORIZONTAL_VELOCITY = 8f;
     private float randomImpulse;
     private float flapFrequency = .3f;
     private float flapCounter = 0f;
-    private World world;
 
     public Enemy(float x, float y, Stage stage, World world) {
         super(x, y, stage);
-        this.world = world;
         loadImage("enemy");
-        createBody(x, y, world);
+        createBody(x, y + bodyRadius, world);
         createRandomImpulses();
     }
 

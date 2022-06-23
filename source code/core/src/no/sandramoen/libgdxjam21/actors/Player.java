@@ -48,7 +48,7 @@ public class Player extends BaseActor {
     }
 
     public void respawn(Vector2 spawnPoint) {
-        body.setTransform(new Vector2(spawnPoint.x, spawnPoint.y+ bodyRadius), body.getAngle());
+        body.setTransform(new Vector2(spawnPoint.x, spawnPoint.y + bodyRadius), body.getAngle());
         body.setLinearVelocity(0f, 0f);
         respawn = false;
     }

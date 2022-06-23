@@ -29,12 +29,13 @@ public class LevelScreen extends BaseScreen {
         background = new Background(0, 0, mainStage);
         tilemap = new TilemapActor(BaseGame.level1Map, mainStage);
 
-        initializePlayer();
         initializeImpassables();
         initializeSpawnPoints();
-        new Enemy(getRandomSpawnPoint().x, getRandomSpawnPoint().y, mainStage, world);
-        new Enemy(getRandomSpawnPoint().x, getRandomSpawnPoint().y, mainStage, world);
-        new Enemy(getRandomSpawnPoint().x, getRandomSpawnPoint().y, mainStage, world);
+        initializePlayer();
+        for (int i = 0; i < 3; i++) {
+            Vector2 spawnPoint = getRandomSpawnPoint();
+            new Enemy(spawnPoint.x, spawnPoint.y + Enemy.bodyRadius, mainStage, world);
+        }
 
         /*GameUtils.playLoopingMusic(BaseGame.levelMusic1);*/
         GameUtils.playLoopingMusic(BaseGame.gallopSoundMusic, 0f);
