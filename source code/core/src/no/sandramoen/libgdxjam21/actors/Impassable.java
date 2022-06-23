@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 
 public class Impassable extends BaseActor {
-    private Body body;
+    public Body body;
 
     public Impassable(float x, float y, float width, float height, Stage stage, World world) {
         super(x, y, stage);

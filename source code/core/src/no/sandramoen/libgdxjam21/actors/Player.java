@@ -32,7 +32,6 @@ public class Player extends BaseActor {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (respawn) respawn();
         keyboardPolling();
         GameUtils.wrapWorld(getStage(), body, bodyRadius);
         syncGraphicsWithBody();
@@ -48,17 +47,17 @@ public class Player extends BaseActor {
         body.setLinearVelocity(new Vector2(body.getLinearVelocity().x * -1.3f, 0f));
     }
 
+    public void respawn(Vector2 spawnPoint) {
+        body.setTransform(new Vector2(spawnPoint.x, spawnPoint.y+ bodyRadius), body.getAngle());
+        body.setLinearVelocity(0f, 0f);
+        respawn = false;
+    }
+
     private void playGallopingSound() {
         if (body.getLinearVelocity().y == 0 && Math.abs(body.getLinearVelocity().x) > 5)
             BaseGame.gallopSoundMusic.setVolume(BaseGame.soundVolume * .4f);
         else
             BaseGame.gallopSoundMusic.setVolume(0);
-    }
-
-    private void respawn() {
-        body.setTransform(new Vector2(0f, 0f), body.getAngle());
-        body.setLinearVelocity(0f, 0f);
-        respawn = false;
     }
 
     private void syncGraphicsWithBody() {

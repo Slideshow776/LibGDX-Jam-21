@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 import no.sandramoen.libgdxjam21.actors.Background;
 import no.sandramoen.libgdxjam21.actors.Enemy;
@@ -19,6 +22,7 @@ public class LevelScreen extends BaseScreen {
     private Player player;
     private Background background;
     private TilemapActor tilemap;
+    private Array<SpawnPoints> spawnPoints;
 
     @Override
     public void initialize() {
@@ -28,7 +32,9 @@ public class LevelScreen extends BaseScreen {
         initializePlayer();
         initializeImpassables();
         initializeSpawnPoints();
-        new Enemy(5, 5, mainStage, world);
+        new Enemy(getRandomSpawnPoint().x, getRandomSpawnPoint().y, mainStage, world);
+        new Enemy(getRandomSpawnPoint().x, getRandomSpawnPoint().y, mainStage, world);
+        new Enemy(getRandomSpawnPoint().x, getRandomSpawnPoint().y, mainStage, world);
 
         /*GameUtils.playLoopingMusic(BaseGame.levelMusic1);*/
         GameUtils.playLoopingMusic(BaseGame.gallopSoundMusic, 0f);
@@ -37,6 +43,9 @@ public class LevelScreen extends BaseScreen {
     @Override
     public void update(float delta) {
         background.act();
+        if (player.respawn) {
+            player.respawn(getRandomSpawnPoint());
+        }
     }
 
     @Override
@@ -45,6 +54,11 @@ public class LevelScreen extends BaseScreen {
         else if (keycode == Input.Keys.R) BaseGame.setActiveScreen(new LevelScreen());
         if (keycode == Input.Keys.SPACE) player.flapWings();
         return super.keyDown(keycode);
+    }
+
+    private Vector2 getRandomSpawnPoint() {
+        int random = MathUtils.random(0, spawnPoints.size - 1);
+        return spawnPoints.get(random).body.getPosition();
     }
 
     private void initializePlayer() {
@@ -66,13 +80,14 @@ public class LevelScreen extends BaseScreen {
     }
 
     private void initializeSpawnPoints() {
+        spawnPoints = new Array();
         for (MapObject obj : tilemap.getTileList("spawn")) {
             MapProperties props = obj.getProperties();
             float x = (Float) props.get("x") * BaseGame.unitScale;
             float y = (Float) props.get("y") * BaseGame.unitScale;
             float width = (Float) props.get("width") * BaseGame.unitScale;
             float height = (Float) props.get("height") * BaseGame.unitScale;
-            new SpawnPoints(x, y, width, height, mainStage, world);
+            spawnPoints.add(new SpawnPoints(x, y, width, height, mainStage, world));
         }
     }
 }
