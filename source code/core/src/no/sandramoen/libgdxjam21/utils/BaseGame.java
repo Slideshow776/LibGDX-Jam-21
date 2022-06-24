@@ -38,6 +38,7 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     public static Music levelMusic1;
     public static Music levelMusic2;
     public static Music gallopSoundMusic;
+    public static Music breakingSoundMusic;
 
     public static Sound armor1Sound;
     public static Sound armor2Sound;
@@ -47,6 +48,12 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     public static Sound pig1Sound;
     public static Sound pig2Sound;
     public static Sound pig3Sound;
+    public static Sound enemySpawnSound;
+    public static Sound dragonRoarSound;
+    public static Sound hurtSound;
+    public static Sound wingFlapSound;
+    public static Sound invulnerableSound;
+    public static Sound noHitSound;
 
     public static TiledMap level1Map;
 
@@ -109,6 +116,7 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         // music
         assetManager.load("audio/music/99567__shnitzelkiller__cammipple.mp3", Music.class);
         assetManager.load("audio/music/94873__shnitzelkiller__surpni.mp3", Music.class);
+        assetManager.load("audio/sound/breaking.wav", Music.class);
 
         // sound
         assetManager.load("audio/sound/armor1.wav", Sound.class);
@@ -120,6 +128,12 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         assetManager.load("audio/sound/pig1.wav", Sound.class);
         assetManager.load("audio/sound/pig2.wav", Sound.class);
         assetManager.load("audio/sound/pig3.wav", Sound.class);
+        assetManager.load("audio/sound/enemySpawn.wav", Sound.class);
+        assetManager.load("audio/sound/85568__joelaudio__dragon-roar.wav", Sound.class);
+        assetManager.load("audio/sound/Hit_Hurt29.wav", Sound.class);
+        assetManager.load("audio/sound/wing flap.wav", Sound.class);
+        assetManager.load("audio/sound/invulnerable.wav", Sound.class);
+        assetManager.load("audio/sound/no hit.wav", Sound.class);
 
         // tiled maps
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -130,6 +144,7 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         // music
         levelMusic1 = assetManager.get("audio/music/99567__shnitzelkiller__cammipple.mp3", Music.class);
         levelMusic2 = assetManager.get("audio/music/94873__shnitzelkiller__surpni.mp3", Music.class);
+        breakingSoundMusic = assetManager.get("audio/sound/breaking.wav", Music.class);
 
         // sound
         armor1Sound = assetManager.get("audio/sound/armor1.wav", Sound.class);
@@ -141,6 +156,12 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         pig1Sound = assetManager.get("audio/sound/pig1.wav", Sound.class);
         pig2Sound = assetManager.get("audio/sound/pig2.wav", Sound.class);
         pig3Sound = assetManager.get("audio/sound/pig3.wav", Sound.class);
+        enemySpawnSound = assetManager.get("audio/sound/enemySpawn.wav", Sound.class);
+        dragonRoarSound = assetManager.get("audio/sound/85568__joelaudio__dragon-roar.wav", Sound.class);
+        hurtSound = assetManager.get("audio/sound/Hit_Hurt29.wav", Sound.class);
+        wingFlapSound = assetManager.get("audio/sound/wing flap.wav", Sound.class);
+        invulnerableSound = assetManager.get("audio/sound/invulnerable.wav", Sound.class);
+        noHitSound = assetManager.get("audio/sound/no hit.wav", Sound.class);
 
         // tiled maps
         level1Map = assetManager.get("maps/level1.tmx", TiledMap.class);

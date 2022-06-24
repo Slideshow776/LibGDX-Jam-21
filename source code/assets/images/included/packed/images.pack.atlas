@@ -6,64 +6,147 @@ filter: Nearest, Nearest
 repeat: none
 background
   rotate: false
-  xy: 2, 547
+  xy: 2, 523
   size: 520, 190
   orig: 520, 190
   offset: 0, 0
   index: -1
 background1
   rotate: false
-  xy: 2, 203
+  xy: 2, 179
   size: 520, 150
   orig: 520, 150
   offset: 0, 0
   index: -1
 background2
   rotate: false
-  xy: 2, 51
+  xy: 2, 27
   size: 520, 150
   orig: 520, 150
   offset: 0, 0
   index: -1
 background3
   rotate: false
-  xy: 2, 355
+  xy: 2, 331
   size: 520, 190
   orig: 520, 190
   offset: 0, 0
   index: -1
 enemy
   rotate: false
-  xy: 2, 26
+  xy: 2, 2
   size: 42, 23
   orig: 42, 23
   offset: 0, 0
   index: -1
 ground
   rotate: false
-  xy: 524, 722
+  xy: 524, 698
   size: 346, 15
   orig: 346, 15
   offset: 0, 0
   index: -1
-player
+jam
   rotate: false
-  xy: 524, 698
-  size: 41, 22
-  orig: 41, 22
-  offset: 0, 0
-  index: -1
-player_turn
-  rotate: false
-  xy: 2, 2
-  size: 41, 22
-  orig: 41, 22
+  xy: 524, 686
+  size: 10, 10
+  orig: 10, 10
   offset: 0, 0
   index: -1
 whitePixel
   rotate: false
-  xy: 872, 736
+  xy: 872, 712
   size: 1, 1
   orig: 1, 1
+  offset: 0, 0
+  index: -1
+
+images.pack2.png
+size: 512, 32
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+player/flying1
+  rotate: false
+  xy: 2, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/flying2
+  rotate: false
+  xy: 35, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/flying4
+  rotate: false
+  xy: 35, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/flying3
+  rotate: false
+  xy: 68, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/idle1
+  rotate: false
+  xy: 101, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/idle2
+  rotate: false
+  xy: 134, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/running1
+  rotate: false
+  xy: 167, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/running2
+  rotate: false
+  xy: 200, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/running3
+  rotate: false
+  xy: 233, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/running4
+  rotate: false
+  xy: 266, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/turn flying
+  rotate: false
+  xy: 299, 2
+  size: 31, 23
+  orig: 31, 23
+  offset: 0, 0
+  index: -1
+player/turn ground
+  rotate: false
+  xy: 332, 2
+  size: 31, 23
+  orig: 31, 23
   offset: 0, 0
   index: -1

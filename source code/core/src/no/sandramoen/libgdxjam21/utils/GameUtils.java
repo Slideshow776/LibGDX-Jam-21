@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 
 public class GameUtils {
@@ -27,6 +29,12 @@ public class GameUtils {
         music.setVolume(volume);
         music.setLooping(true);
         music.play();
+    }
+
+    public static void scaleIn(BaseActor baseActor) {
+        baseActor.setOrigin(Align.bottom);
+        baseActor.setScaleY(0f);
+        baseActor.addAction(Actions.scaleTo(1f, 1f, .5f));
     }
 
     public static void wrapWorld(Stage stage, Body body, Float bodyWidth) {

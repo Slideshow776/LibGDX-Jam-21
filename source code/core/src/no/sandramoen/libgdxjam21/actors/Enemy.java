@@ -1,27 +1,27 @@
 package no.sandramoen.libgdxjam21.actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.utils.Align;
 
 import no.sandramoen.libgdxjam21.utils.BaseActor;
+import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.GameUtils;
 
 public class Enemy extends BaseActor {
     public static float bodyRadius = 1.2f;
     public boolean remove = false;
+    public Body body;
+    public World world;
 
-    private Body body;
     private final float MAX_HORIZONTAL_VELOCITY = 8f;
     private float randomImpulse;
     private float flapFrequency = .3f;
@@ -29,9 +29,13 @@ public class Enemy extends BaseActor {
 
     public Enemy(float x, float y, Stage stage, World world) {
         super(x, y, stage);
+        this.world = world;
         loadImage("enemy");
+        setOrigin(Align.bottom);
+        GameUtils.scaleIn(this);
         createBody(x, y + bodyRadius, world);
         createRandomImpulses();
+        BaseGame.enemySpawnSound.play(BaseGame.soundVolume);
     }
 
     @Override
@@ -45,6 +49,8 @@ public class Enemy extends BaseActor {
 
     @Override
     public boolean remove() {
+        new Jam(body.getPosition().x, body.getPosition().y, getStage(), world);
+        BaseGame.dragonRoarSound.play(BaseGame.soundVolume);
         body.setTransform(new Vector2(-100f, -100f), body.getAngle());
         body.setActive(false);
         body.setAwake(false);
@@ -123,19 +129,7 @@ public class Enemy extends BaseActor {
         fixtureDef.restitution = .1f;
 
         Fixture fixture = body.createFixture(fixtureDef);
+        fixture.setUserData("Enemy");
         circle.dispose();
-    }
-
-    private void wrapWorld() {
-        Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
-        Vector3 vec2 = this.getStage().getCamera().unproject(vec);
-
-        if (body.getPosition().x + this.bodyRadius / 4 > vec2.x)
-            body.setTransform(-vec2.x - this.bodyRadius / 4, body.getPosition().y, body.getAngle());
-        else if (body.getPosition().x + this.bodyRadius / 4 < -vec2.x)
-            body.setTransform(vec2.x - this.bodyRadius / 4, body.getPosition().y, body.getAngle());
-
-        if (body.getPosition().y + getHeight() / 2 > -vec2.y)
-            setY(-vec2.y - this.bodyRadius);
     }
 }

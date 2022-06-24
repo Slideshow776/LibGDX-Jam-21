@@ -6,14 +6,17 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 
 import no.sandramoen.libgdxjam21.actors.Background;
 import no.sandramoen.libgdxjam21.actors.Enemy;
 import no.sandramoen.libgdxjam21.actors.Impassable;
 import no.sandramoen.libgdxjam21.actors.Player;
+import no.sandramoen.libgdxjam21.actors.Roof;
 import no.sandramoen.libgdxjam21.actors.SpawnPoints;
 import no.sandramoen.libgdxjam21.actors.TilemapActor;
+import no.sandramoen.libgdxjam21.utils.BaseActor;
 import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.BaseScreen;
 import no.sandramoen.libgdxjam21.utils.GameUtils;
@@ -31,14 +34,13 @@ public class LevelScreen extends BaseScreen {
 
         initializeImpassables();
         initializeSpawnPoints();
+        initializeRoof();
         initializePlayer();
-        for (int i = 0; i < 3; i++) {
-            Vector2 spawnPoint = getRandomSpawnPoint();
-            new Enemy(spawnPoint.x, spawnPoint.y + Enemy.bodyRadius, mainStage, world);
-        }
+        spawnEnemies(3);
 
-        /*GameUtils.playLoopingMusic(BaseGame.levelMusic1);*/
+        GameUtils.playLoopingMusic(BaseGame.levelMusic1);
         GameUtils.playLoopingMusic(BaseGame.gallopSoundMusic, 0f);
+        GameUtils.playLoopingMusic(BaseGame.breakingSoundMusic, 0f);
     }
 
     @Override
@@ -55,6 +57,21 @@ public class LevelScreen extends BaseScreen {
         else if (keycode == Input.Keys.R) BaseGame.setActiveScreen(new LevelScreen());
         if (keycode == Input.Keys.SPACE) player.flapWings();
         return super.keyDown(keycode);
+    }
+
+    private void spawnEnemies(int numEnemies) {
+        for (int i = 1; i <= numEnemies; i++) {
+            new BaseActor(0f, 0f, mainStage).addAction(Actions.sequence(
+                    Actions.delay(1f * i),
+                    Actions.run(new Runnable() {
+                        @Override
+                        public void run() {
+                            Vector2 spawnPoint = getRandomSpawnPoint();
+                            new Enemy(spawnPoint.x, spawnPoint.y + Enemy.bodyRadius, mainStage, world);
+                        }
+                    })
+            ));
+        }
     }
 
     private Vector2 getRandomSpawnPoint() {
@@ -76,8 +93,18 @@ public class LevelScreen extends BaseScreen {
             float y = (Float) props.get("y") * BaseGame.unitScale;
             float width = (Float) props.get("width") * BaseGame.unitScale;
             float height = (Float) props.get("height") * BaseGame.unitScale;
-            new Impassable(x, y, width, height, mainStage, world);
+            new Impassable(x, y, width, height, mainStage, world, "Impassable");
         }
+    }
+
+    private void initializeRoof() {
+        MapObject obj = tilemap.getRectangleList("roof").get(0);
+        MapProperties props = obj.getProperties();
+        float x = (Float) props.get("x") * BaseGame.unitScale;
+        float y = (Float) props.get("y") * BaseGame.unitScale;
+        float width = (Float) props.get("width") * BaseGame.unitScale;
+        float height = (Float) props.get("height") * BaseGame.unitScale;
+        new Roof(x, y, width, height, mainStage, world);
     }
 
     private void initializeSpawnPoints() {
@@ -88,7 +115,7 @@ public class LevelScreen extends BaseScreen {
             float y = (Float) props.get("y") * BaseGame.unitScale;
             float width = (Float) props.get("width") * BaseGame.unitScale;
             float height = (Float) props.get("height") * BaseGame.unitScale;
-            spawnPoints.add(new SpawnPoints(x, y, width, height, mainStage, world));
+            spawnPoints.add(new SpawnPoints(x, y, width, height, mainStage, world, "SpawnPoints"));
         }
     }
 }
