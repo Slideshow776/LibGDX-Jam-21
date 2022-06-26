@@ -1,8 +1,10 @@
 d:assets:assets:0:application/unknown:1
 d:audio:audio:0:application/unknown:1
 d:audio/music:audio/music:0:application/unknown:1
+a:audio/music/433563__burghrecords__cinematic-impact-intro-01.wav:audio/music/433563__burghrecords__cinematic-impact-intro-01-ddb84bd15b0b60884b074efd4bafbc21.wav:2856522:audio/x-wav:1
 a:audio/music/94873__shnitzelkiller__surpni.mp3:audio/music/94873__shnitzelkiller__surpni-23fab2e68c713d305cae7a839c2f920b.mp3:645457:audio/mpeg:1
 a:audio/music/99567__shnitzelkiller__cammipple.mp3:audio/music/99567__shnitzelkiller__cammipple-3fd61c86bef6f0422f6c0353f97fa967.mp3:1167524:audio/mpeg:1
+a:audio/music/intro voice.wav:audio/music/intro voice-26e297cc22f6f4587116f0bd8053357a.wav:952228:audio/x-wav:1
 d:audio/sound:audio/sound:0:application/unknown:1
 a:audio/sound/237924__foolboymedia__splat-and-crunch.wav:audio/sound/237924__foolboymedia__splat-and-crunch-c4daf0dc584011bf046915e782913d72.wav:117830:audio/x-wav:1
 a:audio/sound/244193__andre-nascimento__empty-glass-bottle-rolling-on-floor.wav:audio/sound/244193__andre-nascimento__empty-glass-bottle-rolling-on-floor-4970ecb734183f391bd597dc623982ab.wav:114828:audio/x-wav:1
@@ -38,9 +40,9 @@ d:i18n:i18n:0:application/unknown:1
 d:images:images:0:application/unknown:1
 d:images/excluded:images/excluded:0:application/unknown:1
 d:images/included:images/included:0:application/unknown:1
-i:images/included/background1.png:images/included/background1-1a69c6c3c381181e82333c998ce8c2c1.png:1054:image/png:1
+i:images/included/background1.png:images/included/background1-7a15b876bd87004c2f34b6d76513a439.png:1056:image/png:1
 i:images/included/background2.png:images/included/background2-ae6389d2a370c3eed01be707c79a4553.png:1636:image/png:1
-i:images/included/background3.png:images/included/background3-c0ffcef79ee96d966e94a1137b9f78e5.png:1222:image/png:1
+i:images/included/background3.png:images/included/background3-620f2bb8942a8b3d4d7f265142aa7011.png:1220:image/png:1
 i:images/included/bridge.png:images/included/bridge-9335b5063f12c50e7ad7b20332d3defa.png:122:image/png:1
 i:images/included/button.png:images/included/button-df8fe798556d14ad48ddec04d20f8ace.png:716:image/png:1
 i:images/included/dragon queen battle.png:images/included/dragon queen battle-7e0e6d60bd322a4fa899973195cc9c94.png:1415:image/png:1
@@ -54,12 +56,12 @@ i:images/included/jam/jam_spawning2.png:images/included/jam/jam_spawning2-36eb1d
 i:images/included/jam/jam_spawning3.png:images/included/jam/jam_spawning3-652ca27925928732230329c9e4f482e2.png:470:image/png:1
 i:images/included/jam/jam_spawning4.png:images/included/jam/jam_spawning4-9c28aab5e67caab66e309e40a2cc63ec.png:508:image/png:1
 i:images/included/jam/jam_spawning5.png:images/included/jam/jam_spawning5-c247bb13e1cf0697f2fbf477a03812d7.png:586:image/png:1
-i:images/included/lava.png:images/included/lava-47193205d4e75cc45391db032c93b774.png:842:image/png:1
+i:images/included/lava.png:images/included/lava-72019edd30f713880999b3e939eb2df3.png:905:image/png:1
 d:images/included/packed:images/included/packed:0:application/unknown:1
-t:images/included/packed/images.pack.atlas:images/included/packed/images.pack-4e0b96c7d57cba1dbdf80dc7e763048e.atlas:3359:application/unknown:1
-i:images/included/packed/images.pack.png:images/included/packed/images.pack-0a843b8df4c77d6773223afccb1c9488.png:33653:image/png:1
+t:images/included/packed/images.pack.atlas:images/included/packed/images.pack-7917fb570fb2dce020be87d4ab4801b1.atlas:3498:application/unknown:1
+i:images/included/packed/images.pack.png:images/included/packed/images.pack-7e3b402e50cd17676a69ec74db8b8c96.png:33706:image/png:1
 i:images/included/packed/images.pack2.png:images/included/packed/images.pack2-dca3d383def54d04af753309b54e117d.png:2109:image/png:1
-i:images/included/packed/images.pack3.png:images/included/packed/images.pack3-54de37f88560bfd057c0c3c92c984aeb.png:2984:image/png:1
+i:images/included/packed/images.pack3.png:images/included/packed/images.pack3-f754e6071688efd6e16d33bd9097759f.png:12140:image/png:1
 d:images/included/player:images/included/player:0:application/unknown:1
 i:images/included/player/flying1.png:images/included/player/flying1-977b09ab8324fbb17ae7747bdca5c3a1.png:812:image/png:1
 i:images/included/player/flying2.png:images/included/player/flying2-2dd810560d449edf6a38b858e633a909.png:681:image/png:1
@@ -67,10 +69,11 @@ i:images/included/player/flying3.png:images/included/player/flying3-97bf7f70816a
 i:images/included/player/flying4.png:images/included/player/flying4-2dd810560d449edf6a38b858e633a909.png:681:image/png:1
 i:images/included/player/idle1.png:images/included/player/idle1-399455c0ecb2e962b4f56cb0cb52af66.png:727:image/png:1
 i:images/included/player/idle2.png:images/included/player/idle2-b76e20429d7cb8ba70614249ce4a39c0.png:717:image/png:1
-i:images/included/player/running1.png:images/included/player/running1-d4c9157e0fe770802534332d1da6a680.png:734:image/png:1
-i:images/included/player/running2.png:images/included/player/running2-b6e5850ba9e97c32c65dac35c8fffc73.png:699:image/png:1
-i:images/included/player/running3.png:images/included/player/running3-88574701f553f8d072e289915308eee5.png:715:image/png:1
-i:images/included/player/running4.png:images/included/player/running4-dca263909dba2733cee2441e8bae040d.png:697:image/png:1
+i:images/included/player/runnin3232g1.png:images/included/player/runnin3232g1-227f75cdfeb4f35d2679613bcece68ba.png:1993:image/png:1
+i:images/included/player/running1.png:images/included/player/running1-0bb52aac2dc1a563c3a373dff5cb960b.png:875:image/png:1
+i:images/included/player/running2.png:images/included/player/running2-9467de02b5aaa5db7840d49251efaf77.png:805:image/png:1
+i:images/included/player/running3.png:images/included/player/running3-fa5cc8a4e572eb9a290281c808683352.png:838:image/png:1
+i:images/included/player/running4.png:images/included/player/running4-4a806caadb44322639d4a8f8b2d9ac74.png:821:image/png:1
 i:images/included/player/turn flying.png:images/included/player/turn flying-11e74393256fd5fca17590c212992ccb.png:880:image/png:1
 i:images/included/player/turn ground.png:images/included/player/turn ground-f78c87309a1778d914d47ea81762ebf4.png:532:image/png:1
 i:images/included/raeleus.png:images/included/raeleus-a16483bc107d455a80f460f3fe35146b.png:1490:image/png:1
