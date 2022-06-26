@@ -30,6 +30,8 @@ public class Player extends BaseActor {
     public static int numFootContacts = 0;
     public Body body;
     public final float MAX_HORIZONTAL_VELOCITY = 12.5f;
+    public int lives = 4;
+    public boolean death = false;
 
     private float bodyRadius = 1.2f;
     private float invulnerableMinimalDuration = 1f;
@@ -56,6 +58,7 @@ public class Player extends BaseActor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        if (death) return;
         keyboardPolling();
         GameUtils.wrapWorld(getStage(), body, bodyRadius);
         syncGraphicsWithBody();
@@ -69,6 +72,7 @@ public class Player extends BaseActor {
     }
 
     public void flapWings() {
+        if (death) return;
         Vector2 pos = body.getPosition();
         body.applyLinearImpulse(0f, 15, pos.x, pos.y, true);
         if (!body.isActive())
@@ -94,13 +98,24 @@ public class Player extends BaseActor {
     }
 
     public void respawn(Vector2 spawnPoint) {
-        body.setTransform(new Vector2(spawnPoint.x, spawnPoint.y + 1.4f * bodyRadius), body.getAngle());
-        body.setLinearVelocity(0f, 0f);
-        setInvulnerable();
-        BaseGame.hurtSound.play(BaseGame.soundVolume);
-        GameUtils.scaleIn(this);
-        respawn = false;
-        shakeCameraABit();
+        lives--;
+        if (lives > -1) {
+            body.setTransform(new Vector2(spawnPoint.x, spawnPoint.y + 1.4f * bodyRadius), body.getAngle());
+            body.setLinearVelocity(0f, 0f);
+            setInvulnerable();
+            BaseGame.hurtSound.play(BaseGame.soundVolume);
+            GameUtils.scaleIn(this);
+            respawn = false;
+            shakeCameraABit();
+        }
+    }
+
+    public void die() {
+        setVisible(false);
+        death = true;
+        body.setTransform(-1000f, -1000f, 0f);
+        body.setActive(false);
+        body.setAwake(false);
     }
 
     public void bounceOffOfRoof() {
@@ -217,7 +232,8 @@ public class Player extends BaseActor {
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        BaseGame.invulnerableSound.play(BaseGame.soundVolume);
+                        if (body.getLinearVelocity().x == 0 && body.getLinearVelocity().y == 0)
+                            BaseGame.invulnerableSound.play(BaseGame.soundVolume);
                         disableInput = false;
                     }
                 }),

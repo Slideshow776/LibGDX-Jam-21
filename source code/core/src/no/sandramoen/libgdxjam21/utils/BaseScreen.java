@@ -22,6 +22,7 @@ public abstract class BaseScreen implements Screen, InputProcessor, ControllerLi
     protected World world;
 
     private Box2DDebugRenderer debugRenderer;
+    private boolean isDebug = false;
 
     public BaseScreen() {
         mainStage = new Stage();
@@ -55,7 +56,8 @@ public abstract class BaseScreen implements Screen, InputProcessor, ControllerLi
 
         mainStage.getViewport().apply();
         mainStage.draw();
-        debugRenderer.render(world, mainStage.getCamera().combined);
+        if (isDebug)
+            debugRenderer.render(world, mainStage.getCamera().combined);
         world.step(1/60f, 6, 2);
 
         uiStage.getViewport().apply();

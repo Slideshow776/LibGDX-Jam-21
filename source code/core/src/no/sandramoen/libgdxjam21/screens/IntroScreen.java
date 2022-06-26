@@ -18,6 +18,9 @@ public class IntroScreen extends BaseScreen {
 
     @Override
     public void initialize() {
+        BaseGame.introMusic.setVolume(1f);
+        BaseGame.introMusic.play();
+
         raeleus = new BaseActor(-12f, 2f, mainStage);
         raeleus.loadImage("raeleus");
 
@@ -54,7 +57,7 @@ public class IntroScreen extends BaseScreen {
     }
 
     private void startGame() {
-        BaseGame.setActiveScreen(new LevelScreen());
+        BaseGame.setActiveScreen(new Level1Screen(null, null));
     }
 
     private void playScene() {
@@ -64,6 +67,8 @@ public class IntroScreen extends BaseScreen {
                     @Override
                     public void run() {
                         talk(raeleus);
+                        BaseGame.introVoice.setVolume(1f);
+                        BaseGame.introVoice.play();
                         setSubtitles("It's over Dragon Queen!");
                     }
                 }),
@@ -113,7 +118,7 @@ public class IntroScreen extends BaseScreen {
                     @Override
                     public void run() {
                         talk(dragonQueen);
-                        setSubtitles("You may have won this battle,\nbut surely my minions will lay waste to all you {COLOR=#a4dddb}floating cities{CLEARCOLOR}!");
+                        setSubtitles("You may have won this battle,\nbut surely my minions will lay waste to all your {COLOR=#a4dddb}floating cities{CLEARCOLOR}!");
                         dragonQueen.addAction(Actions.sequence(
                                 Actions.delay(6f),
                                 Actions.moveTo(50f, -50f, 1f)
@@ -124,7 +129,7 @@ public class IntroScreen extends BaseScreen {
                         ));
                     }
                 }),
-                Actions.delay(10f),
+                Actions.delay(8f),
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
@@ -137,7 +142,7 @@ public class IntroScreen extends BaseScreen {
                     @Override
                     public void run() {
                         talk(raeleus);
-                        setSubtitles("{FAST}...I gotta go finish my own game. {WAIT}THANKS!");
+                        setSubtitles("{FAST}...I gotta go finish my own game. {WAIT=1}THANKS!");
                         raeleus.addAction(Actions.moveTo(50f, 50f, 4f));
                     }
                 }),

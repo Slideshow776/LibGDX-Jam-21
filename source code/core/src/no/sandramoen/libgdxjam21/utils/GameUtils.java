@@ -41,12 +41,14 @@ public class GameUtils {
     public static void wrapWorld(Stage stage, Body body, Float bodyWidth) {
         Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
         OrthographicCamera camera = (OrthographicCamera) stage.getCamera();
-        camera.zoom = 1.2f;
+        if (camera.zoom != 1.2f)
+            camera.zoom = 1.2f;
         Vector3 vec2 = camera.unproject(vec);
 
-        if (body.getPosition().x + bodyWidth / 4 > vec2.x)
-            body.setTransform(0 + bodyWidth / 4, body.getPosition().y, body.getAngle());
-        else if (body.getPosition().x + bodyWidth / 4 < 0)
-            body.setTransform(vec2.x - bodyWidth / 4, body.getPosition().y, body.getAngle());
+        float modifier = .5f;
+        if (body.getPosition().x + bodyWidth * modifier > vec2.x)
+            body.setTransform(0 + bodyWidth * modifier, body.getPosition().y, body.getAngle());
+        else if (body.getPosition().x + bodyWidth * modifier < 0)
+            body.setTransform(vec2.x - bodyWidth * modifier, body.getPosition().y, body.getAngle());
     }
 }

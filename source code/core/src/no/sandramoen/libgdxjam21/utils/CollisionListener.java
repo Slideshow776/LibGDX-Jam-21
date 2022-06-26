@@ -63,11 +63,11 @@ public class CollisionListener implements ContactListener {
         if (entityA.equals("Player") && entityB.equals("Jam")) {
             BaseGame.jamPickupSound.play(BaseGame.soundVolume);
             Jam jam = (Jam) (contact.getFixtureB().getBody().getUserData());
-            jam.remove = true;
+            jam.pickup = true;
         } else if (entityA.equals("Jam") && entityB.equals("Player")) {
             BaseGame.jamPickupSound.play(BaseGame.soundVolume);
             Jam jam = (Jam) (contact.getFixtureA().getBody().getUserData());
-            jam.remove = true;
+            jam.pickup = true;
         }
     }
 

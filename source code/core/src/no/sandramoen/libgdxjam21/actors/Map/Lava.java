@@ -31,7 +31,7 @@ public class Lava extends BaseActor {
         BaseGame.bubblesSound.play(BaseGame.soundVolume);
         body.setLinearVelocity(0f, 1f);
         new BaseActor(0f, 0f, getStage()).addAction(Actions.sequence(
-                Actions.delay(1f),
+                Actions.delay(2f),
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {

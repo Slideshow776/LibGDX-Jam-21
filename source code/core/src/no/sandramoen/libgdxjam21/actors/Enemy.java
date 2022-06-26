@@ -44,12 +44,11 @@ public class Enemy extends BaseActor {
         GameUtils.wrapWorld(getStage(), body, bodyRadius);
         syncGraphicsWithBody();
         AI(delta);
-        if (remove) remove();
     }
 
     @Override
     public boolean remove() {
-        new Jam(body.getPosition().x, body.getPosition().y, getStage(), world);
+        remove = false;
         BaseGame.dragonRoarSound.play(BaseGame.soundVolume);
         body.setTransform(new Vector2(-100f, -100f), body.getAngle());
         body.setActive(false);

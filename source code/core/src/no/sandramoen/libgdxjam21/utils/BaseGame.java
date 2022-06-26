@@ -39,6 +39,8 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     public static Music levelMusic2;
     public static Music gallopSoundMusic;
     public static Music breakingSoundMusic;
+    public static Music introMusic;
+    public static Music introVoice;
 
     public static Sound armor1Sound;
     public static Sound armor2Sound;
@@ -124,6 +126,8 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         assetManager.load("audio/music/99567__shnitzelkiller__cammipple.mp3", Music.class);
         assetManager.load("audio/music/94873__shnitzelkiller__surpni.mp3", Music.class);
         assetManager.load("audio/sound/breaking.wav", Music.class);
+        assetManager.load("audio/music/433563__burghrecords__cinematic-impact-intro-01.wav", Music.class);
+        assetManager.load("audio/music/intro voice.wav", Music.class);
 
         // sound
         assetManager.load("audio/sound/armor1.wav", Sound.class);
@@ -159,6 +163,8 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         levelMusic1 = assetManager.get("audio/music/99567__shnitzelkiller__cammipple.mp3", Music.class);
         levelMusic2 = assetManager.get("audio/music/94873__shnitzelkiller__surpni.mp3", Music.class);
         breakingSoundMusic = assetManager.get("audio/sound/breaking.wav", Music.class);
+        introMusic = assetManager.get("audio/music/433563__burghrecords__cinematic-impact-intro-01.wav", Music.class);
+        introVoice = assetManager.get("audio/music/intro voice.wav", Music.class);
 
         // sound
         armor1Sound = assetManager.get("audio/sound/armor1.wav", Sound.class);
