@@ -54,6 +54,13 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
     public static Sound wingFlapSound;
     public static Sound invulnerableSound;
     public static Sound noHitSound;
+    public static Sound glassHitSound;
+    public static Sound jamPickupSound;
+    public static Sound clickSound;
+    public static Sound swordSlashSound;
+    public static Sound bridgeBreakSound;
+    public static Sound jamDrownSound;
+    public static Sound bubblesSound;
 
     public static TiledMap level1Map;
 
@@ -134,6 +141,13 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         assetManager.load("audio/sound/wing flap.wav", Sound.class);
         assetManager.load("audio/sound/invulnerable.wav", Sound.class);
         assetManager.load("audio/sound/no hit.wav", Sound.class);
+        assetManager.load("audio/sound/244193__andre-nascimento__empty-glass-bottle-rolling-on-floor.wav", Sound.class);
+        assetManager.load("audio/sound/Pickup_Coin24.wav", Sound.class);
+        assetManager.load("audio/sound/Blip_Select6.wav", Sound.class);
+        assetManager.load("audio/sound/574821__wesleyextreme-gamer__slash1.ogg", Sound.class);
+        assetManager.load("audio/sound/Explosion2.wav", Sound.class);
+        assetManager.load("audio/sound/237924__foolboymedia__splat-and-crunch.wav", Sound.class);
+        assetManager.load("audio/sound/398808__inspectorj__bubbling-large-a.wav", Sound.class);
 
         // tiled maps
         assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
@@ -162,6 +176,13 @@ public abstract class BaseGame extends Game implements AssetErrorListener {
         wingFlapSound = assetManager.get("audio/sound/wing flap.wav", Sound.class);
         invulnerableSound = assetManager.get("audio/sound/invulnerable.wav", Sound.class);
         noHitSound = assetManager.get("audio/sound/no hit.wav", Sound.class);
+        glassHitSound = assetManager.get("audio/sound/244193__andre-nascimento__empty-glass-bottle-rolling-on-floor.wav", Sound.class);
+        jamPickupSound = assetManager.get("audio/sound/Pickup_Coin24.wav", Sound.class);
+        clickSound = assetManager.get("audio/sound/Blip_Select6.wav", Sound.class);
+        swordSlashSound = assetManager.get("audio/sound/574821__wesleyextreme-gamer__slash1.ogg", Sound.class);
+        bridgeBreakSound = assetManager.get("audio/sound/Explosion2.wav", Sound.class);
+        jamDrownSound = assetManager.get("audio/sound/237924__foolboymedia__splat-and-crunch.wav", Sound.class);
+        bubblesSound = assetManager.get("audio/sound/398808__inspectorj__bubbling-large-a.wav", Sound.class);
 
         // tiled maps
         level1Map = assetManager.get("maps/level1.tmx", TiledMap.class);

@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.utils.Array;
 
+import no.sandramoen.libgdxjam21.actors.Map.TilemapActor;
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.GameUtils;
@@ -63,6 +64,8 @@ public class Player extends BaseActor {
         isFlying = numFootContacts == 0;
         if (isFlying)
             BaseGame.breakingSoundMusic.setVolume(0);
+        if (isShakyCam)
+            shakeCamera();
     }
 
     public void flapWings() {
@@ -78,6 +81,7 @@ public class Player extends BaseActor {
     }
 
     public void reverseHorizontalDirection() {
+        shakeCameraABit();
         if (body.getLinearVelocity().x < 0)
             body.setLinearVelocity(1.2f * MAX_HORIZONTAL_VELOCITY, 0f);
         else
@@ -85,7 +89,8 @@ public class Player extends BaseActor {
     }
 
     public void reverseDirection() {
-        body.setLinearVelocity(body.getLinearVelocity().x * -1, body.getLinearVelocity().y * -1);
+        shakeCameraABit();
+        body.setLinearVelocity(body.getLinearVelocity().x * -1.5f, body.getLinearVelocity().y * -1.5f);
     }
 
     public void respawn(Vector2 spawnPoint) {
@@ -95,15 +100,28 @@ public class Player extends BaseActor {
         BaseGame.hurtSound.play(BaseGame.soundVolume);
         GameUtils.scaleIn(this);
         respawn = false;
+        shakeCameraABit();
     }
 
     public void bounceOffOfRoof() {
-        System.out.println(body.getLinearVelocity().x);
         body.setLinearVelocity(
                 body.getLinearVelocity().x,
                 body.getLinearVelocity().y + 100f
         );
         System.out.println(body.getLinearVelocity().x);
+    }
+
+    private void shakeCameraABit() {
+        isShakyCam = true;
+        new BaseActor(0f, 0f, getStage()).addAction(Actions.sequence(
+                Actions.delay(1f),
+                Actions.run(new Runnable() {
+                    @Override
+                    public void run() {
+                        isShakyCam = false;
+                        TilemapActor.setFocalPoint(getStage());
+                    }
+                })));
     }
 
     private void standingStill() {
@@ -145,7 +163,7 @@ public class Player extends BaseActor {
     }
 
     private void playGallopingSound() {
-        if (body.getLinearVelocity().y == 0 && Math.abs(body.getLinearVelocity().x) > 5)
+        if (body.getLinearVelocity().y == 0 && Math.abs(body.getLinearVelocity().x) > 2)
             BaseGame.gallopSoundMusic.setVolume(BaseGame.soundVolume * .4f);
         else
             BaseGame.gallopSoundMusic.setVolume(0);
@@ -188,7 +206,6 @@ public class Player extends BaseActor {
 
     private void setInvulnerable() {
         body.setActive(false);
-        BaseGame.invulnerableSound.play(BaseGame.soundVolume);
         invulnerableAnimation = Actions.forever(Actions.sequence(
                 Actions.color(Color.BLACK, .25f),
                 Actions.color(Color.WHITE, .25f)
@@ -200,6 +217,7 @@ public class Player extends BaseActor {
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
+                        BaseGame.invulnerableSound.play(BaseGame.soundVolume);
                         disableInput = false;
                     }
                 }),
@@ -254,7 +272,7 @@ public class Player extends BaseActor {
                 flip();
                 animateTurn();
             }
-            if (vel.x < 0f)
+            if (vel.x < 0f && !isFlying)
                 BaseGame.breakingSoundMusic.setVolume(BaseGame.soundVolume);
             else
                 BaseGame.breakingSoundMusic.setVolume(0f);

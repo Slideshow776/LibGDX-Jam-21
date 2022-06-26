@@ -1,4 +1,4 @@
-package no.sandramoen.libgdxjam21.actors;
+package no.sandramoen.libgdxjam21.actors.Map;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -30,7 +30,7 @@ public class TilemapActor extends Actor {
         tiledMapRenderer.setBlending(true);
         stage.addActor(this);
         calculateFocalPoint();
-        setFocalPoint();
+        setFocalPoint(stage);
     }
 
     public ArrayList<MapObject> getRectangleList(String propertyName) {
@@ -105,8 +105,9 @@ public class TilemapActor extends Actor {
         focalPoint = new Vector2(mapWidth / 2, mapHeight / 2);
     }
 
-    private void setFocalPoint() {
-        OrthographicCamera camera = (OrthographicCamera) getStage().getViewport().getCamera();
+    public static void setFocalPoint(Stage stage) {
+        OrthographicCamera camera = (OrthographicCamera) stage.getViewport().getCamera();
+        camera.zoom = 1.2f;
         camera.position.set(new Vector3(
                 TilemapActor.focalPoint.x * BaseGame.unitScale,
                 TilemapActor.focalPoint.y * BaseGame.unitScale,

@@ -11,11 +11,13 @@ import com.badlogic.gdx.utils.Array;
 
 import no.sandramoen.libgdxjam21.actors.Background;
 import no.sandramoen.libgdxjam21.actors.Enemy;
-import no.sandramoen.libgdxjam21.actors.Impassable;
+import no.sandramoen.libgdxjam21.actors.Map.Bridge;
+import no.sandramoen.libgdxjam21.actors.Map.Impassable;
+import no.sandramoen.libgdxjam21.actors.Map.Lava;
 import no.sandramoen.libgdxjam21.actors.Player;
-import no.sandramoen.libgdxjam21.actors.Roof;
-import no.sandramoen.libgdxjam21.actors.SpawnPoints;
-import no.sandramoen.libgdxjam21.actors.TilemapActor;
+import no.sandramoen.libgdxjam21.actors.Map.Roof;
+import no.sandramoen.libgdxjam21.actors.Map.SpawnPoints;
+import no.sandramoen.libgdxjam21.actors.Map.TilemapActor;
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.BaseScreen;
@@ -26,19 +28,25 @@ public class LevelScreen extends BaseScreen {
     private Background background;
     private TilemapActor tilemap;
     private Array<SpawnPoints> spawnPoints;
+    private Array<Bridge> bridges;
+    private Lava lava;
 
     @Override
     public void initialize() {
-        background = new Background(-10, 0, mainStage);
+        background = new Background(-10, -1, mainStage);
+
+        lava = new Lava(0f, -17f, mainStage, world);
+
         tilemap = new TilemapActor(BaseGame.level1Map, mainStage);
 
         initializeImpassables();
         initializeSpawnPoints();
+        initializeBridges();
         initializeRoof();
         initializePlayer();
         spawnEnemies(3);
 
-        GameUtils.playLoopingMusic(BaseGame.levelMusic1);
+        /*GameUtils.playLoopingMusic(BaseGame.levelMusic1);*/
         GameUtils.playLoopingMusic(BaseGame.gallopSoundMusic, 0f);
         GameUtils.playLoopingMusic(BaseGame.breakingSoundMusic, 0f);
     }
@@ -74,6 +82,11 @@ public class LevelScreen extends BaseScreen {
         }
     }
 
+    private void breakBridges() {
+        for (Bridge bridge : bridges)
+            bridge.destroy();
+    }
+
     private Vector2 getRandomSpawnPoint() {
         int random = MathUtils.random(0, spawnPoints.size - 1);
         return spawnPoints.get(random).body.getPosition();
@@ -97,6 +110,18 @@ public class LevelScreen extends BaseScreen {
         }
     }
 
+    private void initializeBridges() {
+        bridges = new Array();
+        for (MapObject obj : tilemap.getTileList("bridge")) {
+            MapProperties props = obj.getProperties();
+            float x = (Float) props.get("x") * BaseGame.unitScale;
+            float y = (Float) props.get("y") * BaseGame.unitScale;
+            float width = (Float) props.get("width") * BaseGame.unitScale;
+            float height = (Float) props.get("height") * BaseGame.unitScale;
+            bridges.add(new Bridge(x, y, width, height, mainStage, world, "Impassable"));
+        }
+    }
+
     private void initializeRoof() {
         MapObject obj = tilemap.getRectangleList("roof").get(0);
         MapProperties props = obj.getProperties();
@@ -104,7 +129,7 @@ public class LevelScreen extends BaseScreen {
         float y = (Float) props.get("y") * BaseGame.unitScale;
         float width = (Float) props.get("width") * BaseGame.unitScale;
         float height = (Float) props.get("height") * BaseGame.unitScale;
-        new Roof(x, y, width, height, mainStage, world);
+        new Roof(x, y, width, height, world);
     }
 
     private void initializeSpawnPoints() {

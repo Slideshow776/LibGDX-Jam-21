@@ -1,4 +1,4 @@
-package no.sandramoen.libgdxjam21.actors;
+package no.sandramoen.libgdxjam21.actors.Map;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;

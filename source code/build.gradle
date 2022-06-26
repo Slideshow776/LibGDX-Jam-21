@@ -29,6 +29,8 @@ allprojects {
         ashleyVersion = '1.7.4'
         aiVersion = '1.8.2'
         gdxControllersVersion = '2.2.1'
+        typingLabelVersion = '1.3.0'
+        regExodusVersion = '0.1.13' // Only if you're using HTML / GWT
     }
 
     repositories {
@@ -95,6 +97,8 @@ project(":html") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-gwt:$gdxControllersVersion:sources"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
         api "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
+        api "com.github.tommyettinger:regexodus:$regExodusVersion:sources"
+        api "com.rafaskoberg.gdx:typing-label:$typingLabelVersion:sources"
         
     }
 }
@@ -107,6 +111,7 @@ project(":core") {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        api "com.rafaskoberg.gdx:typing-label:$typingLabelVersion"
         
     }
 

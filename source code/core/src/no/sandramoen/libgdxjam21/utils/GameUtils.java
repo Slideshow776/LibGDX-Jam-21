@@ -3,6 +3,7 @@ package no.sandramoen.libgdxjam21.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -39,7 +40,9 @@ public class GameUtils {
 
     public static void wrapWorld(Stage stage, Body body, Float bodyWidth) {
         Vector3 vec = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
-        Vector3 vec2 = stage.getCamera().unproject(vec);
+        OrthographicCamera camera = (OrthographicCamera) stage.getCamera();
+        camera.zoom = 1.2f;
+        Vector3 vec2 = camera.unproject(vec);
 
         if (body.getPosition().x + bodyWidth / 4 > vec2.x)
             body.setTransform(0 + bodyWidth / 4, body.getPosition().y, body.getAngle());

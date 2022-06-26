@@ -1,6 +1,5 @@
 package no.sandramoen.libgdxjam21.utils;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -22,6 +21,9 @@ public class CollisionListener implements ContactListener {
         checkEnemyCollision(contact, entityA, entityB);
         checkImpassableCollision(contact, entityA, entityB);
         checkRoofCollision(contact, entityA, entityB);
+        checkJamGroundHit(entityA, entityB);
+        checkPlayerPickupJam(contact, entityA, entityB);
+        checkLavaCollision(contact, entityA, entityB);
 
         if (entityA.equals("playerSensor") || entityB.equals("playerSensor"))
             Player.numFootContacts++;
@@ -44,6 +46,31 @@ public class CollisionListener implements ContactListener {
     public void postSolve(Contact contact, ContactImpulse impulse) {
     }
 
+    private void checkJamGroundHit(String entityA, String entityB) {
+        if (entityA.equals("Impassable") && entityB.equals("Jam")) {
+            BaseGame.glassHitSound.play(BaseGame.soundVolume);
+        } else if (entityA.equals("Jam") && entityB.equals("Impassable")) {
+            BaseGame.glassHitSound.play(BaseGame.soundVolume);
+        }
+        if (entityA.equals("SpawnPoints") && entityB.equals("Jam")) {
+            BaseGame.glassHitSound.play(BaseGame.soundVolume);
+        } else if (entityA.equals("Jam") && entityB.equals("SpawnPoints")) {
+            BaseGame.glassHitSound.play(BaseGame.soundVolume);
+        }
+    }
+
+    private void checkPlayerPickupJam(Contact contact, String entityA, String entityB) {
+        if (entityA.equals("Player") && entityB.equals("Jam")) {
+            BaseGame.jamPickupSound.play(BaseGame.soundVolume);
+            Jam jam = (Jam) (contact.getFixtureB().getBody().getUserData());
+            jam.remove = true;
+        } else if (entityA.equals("Jam") && entityB.equals("Player")) {
+            BaseGame.jamPickupSound.play(BaseGame.soundVolume);
+            Jam jam = (Jam) (contact.getFixtureA().getBody().getUserData());
+            jam.remove = true;
+        }
+    }
+
     private void checkRoofCollision(Contact contact, String entityA, String entityB) {
         if (entityA.equals("Player") && entityB.equals("Roof")) {
             Player player = (Player) (contact.getFixtureA().getBody().getUserData());
@@ -63,6 +90,18 @@ public class CollisionListener implements ContactListener {
             Player player = (Player) (contact.getFixtureB().getBody().getUserData());
             Enemy enemy = (Enemy) (contact.getFixtureA().getBody().getUserData());
             playerCollidedWithAnEnemy(player, enemy);
+        }
+    }
+
+    private void checkLavaCollision(Contact contact, String entityA, String entityB) {
+        if (entityA.equals("Player") && entityB.equals("Lava")) {
+            Player player = (Player) (contact.getFixtureA().getBody().getUserData());
+            BaseGame.jamDrownSound.play(BaseGame.soundVolume);
+            player.respawn = true;
+        } else if (entityA.equals("Lava") && entityB.equals("Player")) {
+            Player player = (Player) (contact.getFixtureB().getBody().getUserData());
+            BaseGame.jamDrownSound.play(BaseGame.soundVolume);
+            player.respawn = true;
         }
     }
 

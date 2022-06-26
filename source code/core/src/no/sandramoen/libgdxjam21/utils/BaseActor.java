@@ -35,7 +35,7 @@ public class BaseActor extends Group {
     public float animationWidth = getWidth();
     public float animationHeight = getWidth();
     public boolean isCollisionEnabled = true;
-    public float shakyCamIntensity = .5f;
+    public float shakyCamIntensity = .025f;
     public boolean isShakyCam = false;
 
     public BaseActor(float x, float y, Stage stage) {
@@ -318,7 +318,7 @@ public class BaseActor extends Group {
         return false;
     }
 
-    private void shakeCamera() {
+    protected void shakeCamera() {
         this.getStage().getCamera().position.set(
                 new Vector3(
                         this.getStage().getCamera().position.x + MathUtils.random(
@@ -332,7 +332,7 @@ public class BaseActor extends Group {
                         0f
                 )
         );
-        bindCameraToWorld((OrthographicCamera) this.getStage().getCamera());
+        /*bindCameraToWorld((OrthographicCamera) this.getStage().getCamera());*/
     }
 
 
