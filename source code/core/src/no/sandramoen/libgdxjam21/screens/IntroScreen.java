@@ -58,6 +58,7 @@ public class IntroScreen extends BaseScreen {
 
     private void startGame() {
         BaseGame.introMusic.stop();
+        BaseGame.introVoice.stop();
         BaseGame.setActiveScreen(new Level1Screen(null, null));
     }
 
