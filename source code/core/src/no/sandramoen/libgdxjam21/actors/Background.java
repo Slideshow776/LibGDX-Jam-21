@@ -1,17 +1,18 @@
 package no.sandramoen.libgdxjam21.actors;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 
 public class Background {
-    private BaseActor background1;
-    private BaseActor background2;
-    private BaseActor background3;
-    private BaseActor background4;
-    private BaseActor background5;
-    private BaseActor background6;
+    public BaseActor background1;
+    public BaseActor background2;
+    public BaseActor background3;
+    public BaseActor background4;
+    public BaseActor background5;
+    public BaseActor background6;
     private float scrollFromHere;
 
     public Background(float x, float y, Stage stage) {

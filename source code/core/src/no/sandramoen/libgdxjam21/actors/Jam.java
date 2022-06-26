@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 
+import javax.swing.JLayeredPane;
+
 import no.sandramoen.libgdxjam21.utils.BaseActor;
 import no.sandramoen.libgdxjam21.utils.BaseGame;
 import no.sandramoen.libgdxjam21.utils.GameUtils;
@@ -22,8 +24,9 @@ import no.sandramoen.libgdxjam21.utils.GameUtils;
 public class Jam extends BaseActor {
     public static float bodyRadius = .6f;
     public boolean remove = false;
-
-    private Body body;
+    public boolean pickup = false;
+    public boolean spawn = false;
+    public Body body;
     private Animation<TextureRegion> spawnAnimation;
 
     public Jam(float x, float y, Stage stage, World world) {
@@ -68,8 +71,7 @@ public class Jam extends BaseActor {
                 Actions.run(new Runnable() {
                     @Override
                     public void run() {
-                        remove = true;
-                        new Enemy(body.getPosition().x, body.getPosition().y, getStage(), body.getWorld());
+                        spawn = true;
                     }
                 })
         ));
