@@ -4,7 +4,7 @@ A short game created for the [Libgdx Jam 21](https://itch.io/jam/libgdx-jam-21).
 [Play it](https://sandramoen.itch.io/pig-joust) for free now? : )
 
 _`A` and `D` to move, `SPACE` to fly, and you can press `R` to restart._
-![image](https://user-images.githubusercontent.com/4059636/175490318-9707b11f-4f3a-41da-b553-fd34a60ddc2f.png)
+![demo](https://user-images.githubusercontent.com/4059636/175880979-05871499-8461-4df5-ab79-446ed0ff7dba.gif)
 Also available [here](https://slideshow776.github.io/LibGDX-Jam-21/).
 
 ## Project comments
