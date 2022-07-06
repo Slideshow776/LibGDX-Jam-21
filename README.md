@@ -7,6 +7,10 @@ _`A` and `D` to move, `SPACE` to fly, and you can press `R` to restart._
 ![demo](https://user-images.githubusercontent.com/4059636/175880979-05871499-8461-4df5-ab79-446ed0ff7dba.gif)
 Also available [here](https://slideshow776.github.io/LibGDX-Jam-21/).
 
+Featured in this video!
+[![image](https://user-images.githubusercontent.com/4059636/177534239-2ee79c8a-7e4e-460d-8c6f-d07a49b29b7f.png)](https://youtu.be/CEamuhDWML8?t=4192)
+
+
 ## Project comments
 The project board is [here](https://github.com/Slideshow776/LibGDX-Jam-21/projects/1).
 
